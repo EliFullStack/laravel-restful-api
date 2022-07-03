@@ -9,4 +9,9 @@ class Game extends Model
 {
     use HasFactory;
 
+    //Relación uno a muchos inversa
+    public function player() {
+        return $this->belongsTo('App\Models\User');
+    }
+
 }
