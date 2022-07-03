@@ -62,4 +62,26 @@ class UserController extends Controller
     {
         //
     }
+
+    public function throwDice() {
+
+    }
+
+    public function playerThrow()
+    {
+
+    }
+
+    public function getRanking() {
+
+    }
+
+    public function getWinner() {
+
+    }
+
+    public function getLoser() {
+
+    }
+
 }
