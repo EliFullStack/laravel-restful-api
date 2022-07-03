@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relación uno a muchos
+    public function games() {
+        return $this->hasMany('App\Models\Game');
+    }
+
+    //Relación muchos a muchos
+    public function roles() {
+        return $this->belongsToMany('App\Models\Role');
+    }
 }
