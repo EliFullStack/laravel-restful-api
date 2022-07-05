@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Game;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,7 +17,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
+        
+        $users = DB::table('users')
+        ->join('games' , 'user_id', '=', 'users.id')
+        ->select(DB::raw("
+                    users.id,
+                    users.nickname,
+                    games.dice1,
+                    games.dice2,
+                    (games.dice1 + games.dice2) as sum 
+                  "))
+        //->select(DB::raw('count(games.id) as user_count'))
+        ->get();
+
+        return $users;
+        
     }
 
     /**
@@ -26,7 +43,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nickname' => 'required|unique:users|max:15',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create($request->all());
+        return response($user, 200);
     }
 
     /**
@@ -35,9 +59,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function showPlayerThrows($id)
     {
-        //
+       // $player = User::with('games')->findOrFail($id);
+       $player = User::included()->findOrFail($id);
+        return $player;
     }
 
     /**
@@ -47,9 +73,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function updateName(Request $request, User $player)
     {
-        //
+        $request->validate([
+            'nickname' => 'required|max:15|unique:users,nickname,'.$player->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$player->id,
+            
+        ]);
+
+        $player->update($request->all());
+        return response($player, 200);
     }
 
     /**
@@ -58,18 +91,19 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
-        //
-    }
 
     public function throwDice() {
+        $dice1 = rand(1,6);
+        $dice2 = rand(1,6);
 
-    }
+        $sum = Game::create();
+        $sum = $dice1 + $dice2;
 
-    public function playerThrow()
-    {
-
+        if ($sum == 7) {
+            echo "partida ganada";
+        } else {
+            echo "partida perdida";
+        }
     }
 
     public function getRanking() {
