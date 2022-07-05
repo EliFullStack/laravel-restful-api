@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::get('players/{player}/games', [UserController::class, 'showPlayerThrows']
 
 Route::put('players/{player}', [UserController::class, 'updateName'])->name('api.players.updateName');
 
-Route::delete('players/{id}/games', [UserController::class, 'destroyPlayerThrows'])->name('api.players.destroyPlayerThrows');
+Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])->name('api.players.destroyPlayerThrows');
 
 Route::post('players/{player}/games', [UserController::class, 'throwDice'])->name('api.players.throwDice');
 
