@@ -27,15 +27,13 @@ Route::get('players', [UserController::class, 'index'])->name('api.players.index
 
 Route::post('players', [UserController::class, 'store'])->name('api.players.store');
 
-Route::get('players/{player}/games', [UserController::class, 'show'])->name('api.players.show');
+Route::get('players/{player}/games', [UserController::class, 'showPlayerThrows'])->name('api.players.showPlayerThrows');
 
-Route::put('players/{player}', [UserController::class, 'update'])->name('api.players.update');
+Route::put('players/{player}', [UserController::class, 'updateName'])->name('api.players.updateName');
 
-Route::delete('players/{player}', [UserController::class, 'destroy'])->name('api.players.destroy');
+Route::delete('players/{id}/games', [UserController::class, 'destroyPlayerThrows'])->name('api.players.destroyPlayerThrows');
 
 Route::post('players/{player}/games', [UserController::class, 'throwDice'])->name('api.players.throwDice');
-
-Route::get('players/{player}/games', [UserController::class, 'getPlayerThrows'])->name('api.players.getPlayerThrows');
 
 Route::get('players/ranking', [UserController::class, 'getRanking'])->name('api.players.getRanking');
 
