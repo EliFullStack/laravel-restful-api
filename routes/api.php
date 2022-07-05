@@ -34,7 +34,7 @@ Route::put('players/{player}', [UserController::class, 'updateName'])->name('api
 
 Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])->name('api.players.destroyPlayerThrows');
 
-Route::post('players/{player}/games', [UserController::class, 'throwDice'])->name('api.players.throwDice');
+Route::post('players/{id}/games', [GameController::class, 'throwDice'])->name('api.players.throwDice');
 
 Route::get('players/ranking', [UserController::class, 'getRanking'])->name('api.players.getRanking');
 

@@ -29,6 +29,26 @@ class GameController extends Controller
         //
     }
 
+    public function throwDice($id) {
+        $dice1 = rand(1,6);
+        $dice2 = rand(1,6);
+        $sum = $dice1 + $dice2;
+
+        Game::create([
+            "dice1" => $dice1,
+            "dice2" => $dice2,
+            "user_id" => $id
+        ])
+        ->where('user_id', '=', $id)
+        ->get();
+
+        if ($sum == 7) {
+            return "La suma de los dados es: " . $sum . ", ha ganado la partida.";
+        }
+
+            return "La suma de los dados es: " . $sum . ", ha perdido la partida.";
+    }
+
     /**
      * Display the specified resource.
      *

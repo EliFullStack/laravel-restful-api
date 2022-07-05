@@ -92,19 +92,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function throwDice() {
-        $dice1 = rand(1,6);
-        $dice2 = rand(1,6);
-
-        $sum = Game::create();
-        $sum = $dice1 + $dice2;
-
-        if ($sum == 7) {
-            echo "partida ganada";
-        } else {
-            echo "partida perdida";
-        }
-    }
 
     public function getRanking() {
 
