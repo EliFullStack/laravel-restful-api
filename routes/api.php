@@ -28,7 +28,7 @@ Route::get('players', [UserController::class, 'index'])->name('api.players.index
 
 Route::post('players', [UserController::class, 'store'])->name('api.players.store');
 
-Route::get('players/{player}/games', [UserController::class, 'showPlayerThrows'])->name('api.players.showPlayerThrows');
+Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])->name('api.players.showPlayerGames');
 
 Route::put('players/{player}', [UserController::class, 'updateName'])->name('api.players.updateName');
 

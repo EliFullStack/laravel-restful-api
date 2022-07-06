@@ -55,9 +55,12 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function showPlayerGames($id)
     {
-        //
+        $playerGames = Game::where('user_id', '=', $id)
+        ->get();
+
+        return $playerGames;
     }
 
     /**

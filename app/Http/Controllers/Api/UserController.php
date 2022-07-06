@@ -31,7 +31,15 @@ class UserController extends Controller
         //->select(DB::raw('count(games.id) as user_count'))
         ->get();
 
-        return $users;
+        
+        foreach ($users as $id => $user) {
+            $totalGames = Game::count('id')
+            ->where('user_id', '=', $id)
+            ->get();
+            return $totalGames;
+        }
+
+      //  return $users;
         
     }
 
@@ -59,12 +67,6 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function showPlayerThrows($id)
-    {
-       // $player = User::with('games')->findOrFail($id);
-       $player = User::included()->findOrFail($id);
-        return $player;
-    }
 
     /**
      * Update the specified resource in storage.
