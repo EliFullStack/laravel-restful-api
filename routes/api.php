@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [RegisterController::class, 'store'])->name('api.register');
 
 
-Route::get('players', [UserController::class, 'index'])->name('api.players.index');
+Route::get('players', [GameController::class, 'index'])->name('api.players.index');
 
 Route::post('players', [UserController::class, 'store'])->name('api.players.store');
 

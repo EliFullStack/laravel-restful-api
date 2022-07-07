@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -15,7 +16,23 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        $totalGames = DB::table('games')
+        ->select('games.user_id', DB::raw('count(*) as totalGames'))
+        ->groupBy('games.user_id')
+        ->get();
+
+      //  return $totalGames;
+
+        $totalGamesGanados = DB::table('games')
+        ->select(DB::sum('(games.dice1 + games.dice2) as totalDados'),'games.user_id', 
+                 DB::raw('count(*) as totalGames'))
+        ->groupBy('games.user_id')
+        ->where('totalDados == 7')
+        ->get();
+
+        return $totalGamesGanados;
+
+
     }
 
     /**
