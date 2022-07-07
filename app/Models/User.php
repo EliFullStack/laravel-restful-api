@@ -6,7 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $allowIncluded = [
+        'games'
+    ];
+
     protected $fillable = [
         'nickname',
         'email',
@@ -51,4 +57,26 @@ class User extends Authenticatable
     public function roles() {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    public function scopeIncluded(Builder $query) {
+
+        if (empty($this->allowIncluded)||empty(request('included'))) {
+            return;
+        }
+
+        $relations = explode(',', request('included'));
+
+        $allowIncluded = collect($this->allowIncluded);
+
+        foreach ($relations as $key => $relationship) {
+            if (!$allowIncluded->contains($relationship)) {
+                unset($relations[$key]);
+            }
+        }
+
+        $query->with($relations);
+    }
+
+    
+    
 }

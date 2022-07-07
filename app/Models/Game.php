@@ -9,6 +9,12 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'dice1',
+        'dice2',
+        'user_id'
+    ];
+
     //Relación uno a muchos inversa
     public function player() {
         return $this->belongsTo('App\Models\User');
