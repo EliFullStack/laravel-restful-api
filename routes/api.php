@@ -23,9 +23,8 @@ use App\Http\Controllers\Api\LoginController;
 //});
 
 //Users
-Route::prefix('/user')->group(function() {
-    Route::post('/login', [LoginController::class, 'login'])->name('api.login');
-});
+
+Route::post('login', [LoginController::class, 'login'])->name('api.login');
 
 
 Route::post('register', [RegisterController::class, 'store'])->name('api.register');
