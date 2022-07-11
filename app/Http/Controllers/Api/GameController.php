@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class GameController extends Controller
 {
@@ -14,7 +15,8 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   
+     public function index()
     {
         $totalGames = DB::table('games')
         ->select('games.user_id', DB::raw('count(*) as totalGames'))
@@ -31,6 +33,30 @@ class GameController extends Controller
         ->get();
 
         return $totalGamesGanados;
+
+    }
+
+       public function averageSuccessRate() {
+
+
+       $totalGames = DB::table('games')
+       ->join('users', 'games.user_id', '=', 'users.id')
+       ->selectRaw('users.nickname, count(games.id) as totalGames')         
+       ->groupBy('users.nickname')
+       ->get();
+
+        $totalGame = DB::table('games')
+        ->selectRaw('games.id, (games.dice1 + games.dice2) as totalGame')
+        ->get();
+
+       //return $totalGame;
+       
+       foreach ($totalGame as $game) {
+        if ($totalGame['totalGame'] == 7 ) {
+            $cantidad = count($totalGame['totalGame']);
+            return $cantidad;
+        }
+       }
 
 
     }
@@ -60,10 +86,10 @@ class GameController extends Controller
         ->get();
 
         if ($sum == 7) {
-            return "La suma de los dados es: " . $sum . ", ha ganado la partida.";
+            return response(["message" => "La suma de los dados es: " . $sum . ", ha ganado la partida."]);
         }
 
-            return "La suma de los dados es: " . $sum . ", ha perdido la partida.";
+            return response(["message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
     }
 
     /**
@@ -105,5 +131,17 @@ class GameController extends Controller
 
         return 'Las tiradas del jugador cuyo id = '. $id . ', han sido eliminadas.';
         
+    }
+
+    public function getRanking() {
+
+    }
+
+    public function getWinner() {
+
+    }
+
+    public function getLoser() {
+
     }
 }
