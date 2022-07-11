@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,14 @@ use App\Http\Controllers\Api\GameController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+//Users
+
+Route::post('login', [LoginController::class, 'login'])->name('api.login');
+
 
 Route::post('register', [RegisterController::class, 'store'])->name('api.register');
 
