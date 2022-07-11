@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -44,24 +45,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nickname' => 'required|unique:users|max:15',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        $user = User::create($request->all());
-        return response($user, 200);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\User  $user
@@ -77,6 +60,7 @@ class UserController extends Controller
      */
     public function updateName(Request $request, User $player)
     {
+        
         $request->validate([
             'nickname' => 'required|max:15|unique:users,nickname,'.$player->id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$player->id,
@@ -85,26 +69,8 @@ class UserController extends Controller
 
         $player->update($request->all());
         return response($player, 200);
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-
-
-    public function getRanking() {
-
-    }
-
-    public function getWinner() {
-
-    }
-
-    public function getLoser() {
-
-    }
 
 }
