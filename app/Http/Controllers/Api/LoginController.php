@@ -21,10 +21,10 @@ class LoginController extends Controller
         if(!Auth::attempt($loginData)) {
 
             return response([
-                'message' => 'El usuario y/o la contraseña son inválidos.']);
+                'message' => 'Las credenciales son incorrectas.']);
         }
 
-       $accessToken = Auth::user()->createToken('authToken')->accessToken;
+       $accessToken = auth()->user()->createToken('authToken')->accessToken;
       
         return response([
             'user' => auth()->user(),

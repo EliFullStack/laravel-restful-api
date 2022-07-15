@@ -19,29 +19,12 @@ class UserController extends Controller
     public function index()
     {
 
-        
-        $users = DB::table('users')
-        ->join('games' , 'user_id', '=', 'users.id')
-        ->select(DB::raw("
-                    users.id,
-                    users.nickname,
-                    games.dice1,
-                    games.dice2,
-                    (games.dice1 + games.dice2) as sum 
-                  "))
-        //->select(DB::raw('count(games.id) as user_count'))
-        ->get();
+        $users = DB::table('users')->get();
 
-        
-        foreach ($users as $id => $user) {
-            $totalGames = Game::count('id')
-            ->where('user_id', '=', $id)
-            ->get();
-            return $totalGames;
+        foreach ($users as $user) {
+            return $user->nickname;
         }
 
-      //  return $users;
-        
     }
 
     /**

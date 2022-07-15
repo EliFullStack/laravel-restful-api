@@ -23,13 +23,21 @@ use App\Http\Middleware;
 //    return $request->user();
 //});
 
+Route::middleware('auth:api')->get('user', function (Request $request) {
+        return $request->user();
+    });
+
 
 
 Route::post('login', [LoginController::class, 'login'])->name('api.login');
 
 Route::post('register', [RegisterController::class, 'store'])->name('api.register');
 
-Route::middleware(['auth:api'])->group(function () {
+
+
+Route::middleware('auth:api')->group(function () {
+    
+Route::get('users', [UserController::class, 'index'])->name('api.users.index');
 
 Route::get('players', [GameController::class, 'averageSuccessRate'])->name('api.players.averageSuccessRate');
 

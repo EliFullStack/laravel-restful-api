@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Constraint\Count;
 
@@ -38,26 +39,31 @@ class GameController extends Controller
 
        public function averageSuccessRate() {
 
-
-       $totalGames = DB::table('games')
+       $a = DB::table('games')
        ->join('users', 'games.user_id', '=', 'users.id')
        ->selectRaw('users.nickname, count(games.id) as totalGames')         
-       ->groupBy('users.nickname')
-       ->get();
+       ->groupBy('users.nickname');
+      // ->get();
 
-        $totalGame = DB::table('games')
-        ->selectRaw('games.id, (games.dice1 + games.dice2) as totalGame')
+      // return $a;
+       /* 
+        $b = DB::table('games')
+        ->join('users', 'games.user_id', '=', 'users.id')
+        ->selectRaw('games.id, users.nickname, (games.dice1 + games.dice2) as totalGame')
         ->get();
+        */
+       //return $b;
+       $c = DB::table('games')
+       ->join('users', 'games.user_id', '=', 'users.id')
+       ->selectRaw('users.nickname, (games.dice1 + games.dice2) as totalGame')
+       ->having('totalGame', '=', 7)
+       ->union($a)
+       ->get();
+       //return $c;
+      // $result = $c->merge($a);
+       return $c;
 
-       //return $totalGame;
        
-       foreach ($totalGame as $game) {
-        if ($totalGame['totalGame'] == 7 ) {
-            $cantidad = count($totalGame['totalGame']);
-            return $cantidad;
-        }
-       }
-
 
     }
 
