@@ -106,7 +106,8 @@ class GameController extends Controller
      */
     public function showPlayerGames($id)
     {
-        $playerGames = Game::where('user_id', '=', $id)
+        $playerGames = DB::table('games')
+        ->where('user_id', '=', $id)
         ->get();
 
         return $playerGames;
@@ -132,11 +133,13 @@ class GameController extends Controller
      */
     public function destroyPlayerThrows($id)
     {
-        Game::where('user_id', '=', $id)
+        
+        DB::table('games')
+        ->where('user_id', '=', $id)
         ->delete();
 
         return 'Las tiradas del jugador cuyo id = '. $id . ', han sido eliminadas.';
-        
+       
     }
 
     public function getRanking() {

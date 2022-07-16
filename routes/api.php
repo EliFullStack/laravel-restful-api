@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\LogoutController;
 use App\Http\Middleware;
 
 /*
@@ -37,7 +38,7 @@ Route::post('register', [RegisterController::class, 'store'])->name('api.registe
 
 Route::middleware('auth:api')->group(function () {
     
-Route::get('users', [UserController::class, 'index'])->name('api.users.index');
+Route::post('logout', [LogoutController::class, 'logout'])->name('api.logout');
 
 Route::get('players', [GameController::class, 'averageSuccessRate'])->name('api.players.averageSuccessRate');
 
@@ -51,9 +52,9 @@ Route::post('players/{id}/games', [GameController::class, 'throwDice'])->name('a
 
 Route::get('players/ranking', [GameController::class, 'getRanking'])->name('api.players.getRanking');
 
-Route::get('/players/ranking/loser', [GameController::class, 'getWinner'])->name('api.players.getWinner');
+Route::get('players/ranking/loser', [GameController::class, 'getWinner'])->name('api.players.getWinner');
 
-Route::get('/players/ranking/winner', [GameController::class, 'getLoser'])->name('api.players.getLoser');
+Route::get('players/ranking/winner', [GameController::class, 'getLoser'])->name('api.players.getLoser');
 
 });
 
