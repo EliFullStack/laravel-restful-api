@@ -11,33 +11,8 @@ use PHPUnit\Framework\Constraint\Count;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
-     public function index()
-    {
-        $totalGames = DB::table('games')
-        ->select('games.user_id', DB::raw('count(*) as totalGames'))
-        ->groupBy('games.user_id')
-        ->get();
 
-      //  return $totalGames;
-
-        $totalGamesGanados = DB::table('games')
-        ->select(DB::sum('(games.dice1 + games.dice2) as totalDados'),'games.user_id', 
-                 DB::raw('count(*) as totalGames'))
-        ->groupBy('games.user_id')
-        ->where('totalDados == 7')
-        ->get();
-
-        return $totalGamesGanados;
-
-    }
-
-       public function averageSuccessRate() {
+    public function averageSuccessRate() {
 
        $a = DB::table('games')
        ->join('users', 'games.user_id', '=', 'users.id')
@@ -83,20 +58,32 @@ class GameController extends Controller
         $dice1 = rand(1,6);
         $dice2 = rand(1,6);
         $sum = $dice1 + $dice2;
+        
+        if ($sum == 7) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
 
         Game::create([
             "dice1" => $dice1,
             "dice2" => $dice2,
+            "winner_loser" => $result,
             "user_id" => $id
         ])
         ->where('user_id', '=', $id)
         ->get();
 
-        if ($sum == 7) {
-            return response(["message" => "La suma de los dados es: " . $sum . ", ha ganado la partida."]);
-        }
+        if ($result == 1) {
+            return response([
+               
+                "message" => "La suma de los dados es: " . $sum . ", ha ganado la partida."]);
+        } else {
 
-            return response(["message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
+            return response([
+                
+                "message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
+            }
     }
 
     /**
