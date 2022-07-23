@@ -79,6 +79,7 @@ class GameController extends Controller
     }
 
     public function throwDice($id) {
+        
         $dice1 = rand(1,6);
         $dice2 = rand(1,6);
         $sum = $dice1 + $dice2;
