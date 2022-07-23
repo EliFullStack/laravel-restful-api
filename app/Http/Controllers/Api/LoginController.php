@@ -14,21 +14,26 @@ class LoginController extends Controller
 {
     public function login (Request $request) {
         $loginData = $request->validate([
-            'email' => 'email|required',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
         if(!Auth::attempt($loginData)) {
 
-            return response([
-                'message' => 'El usuario y/o la contraseña son inválidos.']);
+            return response()->json([
+                "message" => "Invalid email or password.",
+                "status" => 401
+            ]);
         }
 
-       $accessToken = Auth::user()->createToken('authToken')->accessToken;
+        $user = $request->user();
+
+        $accessToken = $user->createToken('authToken')->accessToken;
       
-        return response([
-            'user' => auth()->user(),
-            'access_Token' => $accessToken
+        return response()->json([
+            "user" => $user,
+            "access_Token "=> $accessToken,
+            "status" => 200
         
         ]);
 
