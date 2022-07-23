@@ -12,6 +12,7 @@ class Game extends Model
     protected $fillable = [
         'dice1',
         'dice2',
+        'winner_loser',
         'user_id'
     ];
 

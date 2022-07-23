@@ -14,9 +14,20 @@ class GameFactory extends Factory
      */
     public function definition()
     {
+        $dice1 = rand(1, 6);
+        $dice2 = rand(1,6);
+        
+
+        if (($dice1 + $dice2) == 7) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+
         return [
-            'dice1' => $this->faker->numberBetween(1,6),
-            'dice2' => $this->faker->numberBetween(1,6),
+            'dice1' => $dice1,
+            'dice2' => $dice2,
+            'winner_loser' => $result,
             'user_id' => User::all()->random()->id
         ];
     }

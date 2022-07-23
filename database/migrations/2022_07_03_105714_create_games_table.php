@@ -17,6 +17,7 @@ class CreateGamesTable extends Migration
             $table->id();
             $table->integer('dice1');
             $table->integer('dice2');
+            $table->boolean('winner_loser');
            
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
