@@ -55,9 +55,9 @@ Route::post('players/{id}/games', [GameController::class, 'throwDice'])/*->middl
 
 Route::get('players/ranking', [GameController::class, 'getRanking'])/*->middleware('can:api.players.getRanking')*/->name('api.players.getRanking');
 
-Route::get('players/ranking/loser', [GameController::class, 'getWinner'])->middleware('can:api.players.getWinner')->name('api.players.getWinner');
+Route::get('players/ranking/winner', [GameController::class, 'getWinner'])/*->middleware('can:api.players.getWinner')*/->name('api.players.getWinner');
 
-Route::get('players/ranking/winner', [GameController::class, 'getLoser'])->middleware('can:api.players.getLoser')->name('api.players.getLoser');
+Route::get('players/ranking/loser', [GameController::class, 'getLoser'])/*->middleware('can:api.players.getLoser')*/->name('api.players.getLoser');
 
 });
 
