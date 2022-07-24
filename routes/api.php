@@ -53,7 +53,7 @@ Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows
 
 Route::post('players/{id}/games', [GameController::class, 'throwDice'])/*->middleware('can:api.players.throwDice')*/->name('api.players.throwDice');
 
-Route::get('players/ranking', [GameController::class, 'getRanking'])->middleware('can:api.players.getRanking')->name('api.players.getRanking');
+Route::get('players/ranking', [GameController::class, 'getRanking'])/*->middleware('can:api.players.getRanking')*/->name('api.players.getRanking');
 
 Route::get('players/ranking/loser', [GameController::class, 'getWinner'])->middleware('can:api.players.getWinner')->name('api.players.getWinner');
 

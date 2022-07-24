@@ -20,7 +20,9 @@ class GameController extends Controller
        ->groupBy('users.nickname')
        ->get();
 
-       return $successRate;
+       return response()->json([
+        "successRate" => $successRate,
+       ]); 
 
     }
 
@@ -98,18 +100,6 @@ class GameController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Game $game)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Game  $game
@@ -137,16 +127,25 @@ class GameController extends Controller
             return response()->json([
                 "message" =>  'Las tiradas del jugador '. $userNickname . ', han sido eliminadas.',
             ]);
-        }
-
-
-
-        
+        }       
        
     }
 
     public function getRanking() {
 
+        $ranking = DB::table('games')
+        
+        ->join('users', 'games.user_id', '=', 'users.id')
+        ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')  
+        ->orderby('successRate', 'desc')
+        ->orderby('totalGames', 'asc')
+        ->groupby('users.nickname')
+        ->get();
+
+            return response()->json([
+                
+                "ranking" => $ranking,
+            ]);
     }
 
     public function getWinner() {
