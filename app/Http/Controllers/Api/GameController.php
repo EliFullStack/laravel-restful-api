@@ -117,12 +117,31 @@ class GameController extends Controller
      */
     public function destroyPlayerThrows($id)
     {
-        
-        DB::table('games')
-        ->where('user_id', '=', $id)
-        ->delete();
+        $game = Game::where('user_id', $id)->first('id');
 
-        return 'Las tiradas del jugador cuyo id = '. $id . ', han sido eliminadas.';
+        if (!User::find($id)) {
+            return response() ->json([
+                "message" => "Este jugador no existe.",
+            ]);
+        } elseif ($game == null) {
+            return response() ->json([
+                "message" => "Este jugador no tiene tiradas para eliminar.",
+            ]);
+        } else {
+            $userNickname = User::find($id)->nickname;
+
+            DB::table('games')
+            ->where('user_id', '=', $id)
+            ->delete();
+
+            return response()->json([
+                "message" =>  'Las tiradas del jugador '. $userNickname . ', han sido eliminadas.',
+            ]);
+        }
+
+
+
+        
        
     }
 

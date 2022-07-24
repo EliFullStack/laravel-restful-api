@@ -49,7 +49,7 @@ Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])
 
 Route::put('players/{player}', [UserController::class, 'updateName'])->middleware('can:api.players.updateName')->name('api.players.updateName');
 
-Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])->middleware('can:api.players.destroyPlayerThrows')->name('api.players.destroyPlayerThrows');
+Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])/*->middleware('can:api.players.destroyPlayerThrows')*/->name('api.players.destroyPlayerThrows');
 
 Route::post('players/{id}/games', [GameController::class, 'throwDice'])/*->middleware('can:api.players.throwDice')*/->name('api.players.throwDice');
 
