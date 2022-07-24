@@ -14,31 +14,13 @@ class GameController extends Controller
 
     public function averageSuccessRate() {
 
-       $a = DB::table('games')
+       $successRate = DB::table('games')
        ->join('users', 'games.user_id', '=', 'users.id')
-       ->selectRaw('users.nickname, count(games.id) as totalGames')         
-       ->groupBy('users.nickname');
-      // ->get();
-
-      // return $a;
-       /* 
-        $b = DB::table('games')
-        ->join('users', 'games.user_id', '=', 'users.id')
-        ->selectRaw('games.id, users.nickname, (games.dice1 + games.dice2) as totalGame')
-        ->get();
-        */
-       //return $b;
-       $c = DB::table('games')
-       ->join('users', 'games.user_id', '=', 'users.id')
-       ->selectRaw('users.nickname, (games.dice1 + games.dice2) as totalGame')
-       ->having('totalGame', '=', 7)
-       ->union($a)
+       ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')         
+       ->groupBy('users.nickname')
        ->get();
-       //return $c;
-      // $result = $c->merge($a);
-       return $c;
 
-       
+       return $successRate;
 
     }
 
@@ -94,11 +76,25 @@ class GameController extends Controller
      */
     public function showPlayerGames($id)
     {
+        $game = Game::where('user_id', $id)->first('id');
+
         $playerGames = DB::table('games')
         ->where('user_id', '=', $id)
         ->get();
 
-        return $playerGames;
+        if (!User::find($id)) {
+            return response() ->json([
+                "message" => "Este jugador no existe.",
+            ]);
+        } elseif ($game == null) {
+            return response() ->json([
+                "message" => "Este jugador no tiene jugadas para mostrar.",
+            ]);
+        } else {
+            return $playerGames;
+        }
+        
+        
     }
 
     /**

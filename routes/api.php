@@ -43,9 +43,9 @@ Route::get('users', [UserController::class, 'index'])->middleware('can:api.users
     
 Route::post('logout', [LogoutController::class, 'logout'])->name('api.logout');
 
-Route::get('players', [GameController::class, 'averageSuccessRate'])->middleware('can:api.players.averageSuccessRate')->name('api.players.averageSuccessRate');
+Route::get('players', [GameController::class, 'averageSuccessRate'])/*->middleware('can:api.players.averageSuccessRate')*/->name('api.players.averageSuccessRate');
 
-Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])->middleware('can:api.players.showPlayerGames')->name('api.players.showPlayerGames');
+Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])/*->middleware('can:api.players.showPlayerGames')*/->name('api.players.showPlayerGames');
 
 Route::put('players/{player}', [UserController::class, 'updateName'])->middleware('can:api.players.updateName')->name('api.players.updateName');
 
