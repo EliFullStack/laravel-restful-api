@@ -43,21 +43,21 @@ Route::get('users', [UserController::class, 'index'])->middleware('can:api.users
     
 Route::post('logout', [LogoutController::class, 'logout'])->name('api.logout');
 
-Route::get('players', [GameController::class, 'averageSuccessRate'])->middleware('can:api.players.averageSuccessRate')->name('api.players.averageSuccessRate');
+Route::get('players', [GameController::class, 'averageSuccessRate'])/*->middleware('can:api.players.averageSuccessRate')*/->name('api.players.averageSuccessRate');
 
-Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])->middleware('can:api.players.showPlayerGames')->name('api.players.showPlayerGames');
+Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])/*->middleware('can:api.players.showPlayerGames')*/->name('api.players.showPlayerGames');
 
 Route::put('players/{player}', [UserController::class, 'updateName'])->middleware('can:api.players.updateName')->name('api.players.updateName');
 
-Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])->middleware('can:api.players.destroyPlayerThrows')->name('api.players.destroyPlayerThrows');
+Route::delete('players/{id}/games', [GameController::class, 'destroyPlayerThrows'])/*->middleware('can:api.players.destroyPlayerThrows')*/->name('api.players.destroyPlayerThrows');
 
-Route::post('players/{id}/games', [GameController::class, 'throwDice'])->middleware('can:api.players.throwDice')->name('api.players.throwDice');
+Route::post('players/{id}/games', [GameController::class, 'throwDice'])/*->middleware('can:api.players.throwDice')*/->name('api.players.throwDice');
 
-Route::get('players/ranking', [GameController::class, 'getRanking'])->middleware('can:api.players.getRanking')->name('api.players.getRanking');
+Route::get('players/ranking', [GameController::class, 'getRanking'])/*->middleware('can:api.players.getRanking')*/->name('api.players.getRanking');
 
-Route::get('players/ranking/loser', [GameController::class, 'getWinner'])->middleware('can:api.players.getWinner')->name('api.players.getWinner');
+Route::get('players/ranking/winner', [GameController::class, 'getWinner'])/*->middleware('can:api.players.getWinner')*/->name('api.players.getWinner');
 
-Route::get('players/ranking/winner', [GameController::class, 'getLoser'])->middleware('can:api.players.getLoser')->name('api.players.getLoser');
+Route::get('players/ranking/loser', [GameController::class, 'getLoser'])/*->middleware('can:api.players.getLoser')*/->name('api.players.getLoser');
 
 });
 

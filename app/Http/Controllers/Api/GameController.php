@@ -11,59 +11,18 @@ use PHPUnit\Framework\Constraint\Count;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
-     public function index()
-    {
-        $totalGames = DB::table('games')
-        ->select('games.user_id', DB::raw('count(*) as totalGames'))
-        ->groupBy('games.user_id')
-        ->get();
 
-      //  return $totalGames;
+    public function averageSuccessRate() {
 
-        $totalGamesGanados = DB::table('games')
-        ->select(DB::sum('(games.dice1 + games.dice2) as totalDados'),'games.user_id', 
-                 DB::raw('count(*) as totalGames'))
-        ->groupBy('games.user_id')
-        ->where('totalDados == 7')
-        ->get();
-
-        return $totalGamesGanados;
-
-    }
-
-       public function averageSuccessRate() {
-
-       $a = DB::table('games')
+       $successRate = DB::table('games')
        ->join('users', 'games.user_id', '=', 'users.id')
-       ->selectRaw('users.nickname, count(games.id) as totalGames')         
-       ->groupBy('users.nickname');
-      // ->get();
-
-      // return $a;
-       /* 
-        $b = DB::table('games')
-        ->join('users', 'games.user_id', '=', 'users.id')
-        ->selectRaw('games.id, users.nickname, (games.dice1 + games.dice2) as totalGame')
-        ->get();
-        */
-       //return $b;
-       $c = DB::table('games')
-       ->join('users', 'games.user_id', '=', 'users.id')
-       ->selectRaw('users.nickname, (games.dice1 + games.dice2) as totalGame')
-       ->having('totalGame', '=', 7)
-       ->union($a)
+       ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')         
+       ->groupBy('users.nickname')
        ->get();
-       //return $c;
-      // $result = $c->merge($a);
-       return $c;
 
-       
+       return response()->json([
+        "successRate" => $successRate,
+       ]); 
 
     }
 
@@ -83,20 +42,32 @@ class GameController extends Controller
         $dice1 = rand(1,6);
         $dice2 = rand(1,6);
         $sum = $dice1 + $dice2;
+        
+        if ($sum == 7) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
 
         Game::create([
             "dice1" => $dice1,
             "dice2" => $dice2,
+            "winner_loser" => $result,
             "user_id" => $id
         ])
         ->where('user_id', '=', $id)
         ->get();
 
-        if ($sum == 7) {
-            return response(["message" => "La suma de los dados es: " . $sum . ", ha ganado la partida."]);
-        }
+        if ($result == 1) {
+            return response([
+               
+                "message" => "La suma de los dados es: " . $sum . ", ha ganado la partida."]);
+        } else {
 
-            return response(["message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
+            return response([
+                
+                "message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
+            }
     }
 
     /**
@@ -107,23 +78,25 @@ class GameController extends Controller
      */
     public function showPlayerGames($id)
     {
+        $game = Game::where('user_id', $id)->first('id');
+
         $playerGames = DB::table('games')
         ->where('user_id', '=', $id)
         ->get();
 
-        return $playerGames;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Game $game)
-    {
-        //
+        if (!User::find($id)) {
+            return response() ->json([
+                "message" => "Este jugador no existe.",
+            ]);
+        } elseif ($game == null) {
+            return response() ->json([
+                "message" => "Este jugador no tiene jugadas para mostrar.",
+            ]);
+        } else {
+            return $playerGames;
+        }
+        
+        
     }
 
     /**
@@ -134,24 +107,78 @@ class GameController extends Controller
      */
     public function destroyPlayerThrows($id)
     {
-        
-        DB::table('games')
-        ->where('user_id', '=', $id)
-        ->delete();
+        $game = Game::where('user_id', $id)->first('id');
 
-        return 'Las tiradas del jugador cuyo id = '. $id . ', han sido eliminadas.';
+        if (!User::find($id)) {
+            return response() ->json([
+                "message" => "Este jugador no existe.",
+            ]);
+        } elseif ($game == null) {
+            return response() ->json([
+                "message" => "Este jugador no tiene tiradas para eliminar.",
+            ]);
+        } else {
+            $userNickname = User::find($id)->nickname;
+
+            DB::table('games')
+            ->where('user_id', '=', $id)
+            ->delete();
+
+            return response()->json([
+                "message" =>  'Las tiradas del jugador '. $userNickname . ', han sido eliminadas.',
+            ]);
+        }       
        
     }
 
     public function getRanking() {
 
+        $ranking = DB::table('games')
+        
+        ->join('users', 'games.user_id', '=', 'users.id')
+        ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')  
+        ->orderby('successRate', 'desc')
+        ->orderby('totalGames', 'asc')
+        ->groupby('users.nickname')
+        ->get();
+
+            return response()->json([
+                
+                "ranking" => $ranking,
+            ]);
     }
 
     public function getWinner() {
+        $winner = DB::table('games')
+        
+        ->join('users', 'games.user_id', '=', 'users.id')
+        ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')  
+        ->orderby('successRate', 'desc')
+        ->orderby('totalGames', 'asc')
+        ->groupby('users.nickname')
+        ->limit(1)
+        ->get();
 
+            return response()->json([
+                
+                "winner" => $winner,
+            ]);
     }
 
     public function getLoser() {
+        $loser = DB::table('games')
+        
+        ->join('users', 'games.user_id', '=', 'users.id')
+        ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')  
+        ->orderby('successRate', 'asc')
+        ->orderby('totalGames', 'desc')
+        ->groupby('users.nickname')
+        ->limit(1)
+        ->get();
 
+            return response()->json([
+                
+                "loser" => $loser,
+            ]);
     }
 }
