@@ -36,22 +36,10 @@ class UserController extends Controller
 
         ]);
 
-        }
-
-        
-        
+        }  
         
         
     }
-
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
 
     /**
      * Update the specified resource in storage.
@@ -66,7 +54,7 @@ class UserController extends Controller
 
         if (!User::find($id)) {
             return response([
-                "message" => "El usuario seleccionado no existe."
+                "message" => "Este usuario no existe."
                     ], 422);
         } elseif ($authorized == $id) {
             $user = User::find($id);

@@ -45,7 +45,7 @@ Route::post('logout', [LogoutController::class, 'logout'])->name('api.logout');
 
 Route::get('players', [GameController::class, 'averageSuccessRate'])->name('api.players.averageSuccessRate');
 
-Route::get('players/{player}/games', [GameController::class, 'showPlayerGames'])->name('api.players.showPlayerGames');
+Route::get('players/{id}/games', [GameController::class, 'showPlayerGames'])->name('api.players.showPlayerGames');
 
 Route::put('players/{id}', [UserController::class, 'updateName'])->name('api.players.updateName');
 
