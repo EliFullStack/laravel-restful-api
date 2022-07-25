@@ -8,13 +8,20 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Constraint\Count;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
 
     public function averageSuccessRate() {
 
-       $successRate = DB::table('games')
+        if (Auth::user()->role != "1") {
+            return response()->json([
+                'message' => 'No estás autorizado para realizar esta petición.',
+                'status' => 403,
+            ]);
+        } else {
+            $successRate = DB::table('games')
        ->join('users', 'games.user_id', '=', 'users.id')
        ->selectRaw('users.nickname, count(games.winner_loser) as totalGames, sum(games.winner_loser = 1) as partidasGanadas ,round(100*sum(games.winner_loser = 1)/count(games.winner_loser)) as successRate')         
        ->groupBy('users.nickname')
@@ -24,6 +31,9 @@ class GameController extends Controller
         "successRate" => $successRate,
        ]); 
 
+        }
+
+       
     }
 
     /**
@@ -38,8 +48,15 @@ class GameController extends Controller
     }
 
     public function throwDice($id) {
-        
-        $dice1 = rand(1,6);
+
+        $authorized = Auth::user()->id;
+
+        if (!User::find($id)) {
+            return response([
+                "message" => "Este usuario no existe."
+                    ], 422);
+        } elseif ($authorized == $id) {
+            $dice1 = rand(1,6);
         $dice2 = rand(1,6);
         $sum = $dice1 + $dice2;
         
@@ -68,6 +85,14 @@ class GameController extends Controller
                 
                 "message" => "La suma de los dados es: " . $sum . ", ha perdido la partida."]);
             }
+        } else {
+            return response([
+                "message" => "No estás autorizado para realizar esta acción.",
+                "status" => 403
+                ]);
+        }
+        
+        
     }
 
     /**
@@ -78,27 +103,34 @@ class GameController extends Controller
      */
     public function showPlayerGames($id)
     {
+        $authorized = Auth::user()->id;
         $game = Game::where('user_id', $id)->first('id');
 
-        $playerGames = DB::table('games')
-        ->where('user_id', '=', $id)
-        ->get();
-
         if (!User::find($id)) {
-            return response() ->json([
-                "message" => "Este jugador no existe.",
-            ]);
+            return response([
+                "message" => "Este usuario no existe.",
+                "status" => 422
+                ]);
+        } elseif ($authorized == $id) {
+            
+            $playerGames = DB::table('games')
+            ->where('user_id', '=', $id)
+            ->get();
+            return $playerGames;
+        
         } elseif ($game == null) {
             return response() ->json([
                 "message" => "Este jugador no tiene jugadas para mostrar.",
             ]);
         } else {
-            return $playerGames;
+            return response([
+                "message" => "No estás autorizado para realizar esta acción.",
+                "status" => 403
+                ]);
         }
+    }      
         
-        
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -107,31 +139,47 @@ class GameController extends Controller
      */
     public function destroyPlayerThrows($id)
     {
+        $authorized = Auth::user()->id;
         $game = Game::where('user_id', $id)->first('id');
+      
+
 
         if (!User::find($id)) {
             return response() ->json([
-                "message" => "Este jugador no existe.",
-            ]);
-        } elseif ($game == null) {
-            return response() ->json([
-                "message" => "Este jugador no tiene tiradas para eliminar.",
-            ]);
-        } else {
-            $userNickname = User::find($id)->nickname;
-
-            DB::table('games')
+                "message" => "Este usuario no existe.",
+                "status" => 422
+                ]);
+        } elseif ($authorized == $id) {
+            if ($game == null) {
+                return response() ->json([
+                    "message" => "Este jugador no tiene tiradas para eliminar.",
+                 ]);
+            } else {
+                DB::table('games')
             ->where('user_id', '=', $id)
             ->delete();
 
             return response()->json([
-                "message" =>  'Las tiradas del jugador '. $userNickname . ', han sido eliminadas.',
+                "message" =>  'Las tiradas de este jugador han sido eliminadas.',
             ]);
-        }       
+            }
+        } else {
+            return response([
+                "message" => "No estás autorizado para realizar esta acción.",
+                "status" => 403
+                ]);
+        } 
        
     }
 
     public function getRanking() {
+
+        if (Auth::user()->role != "1") {
+            return response()->json([
+                'message' => 'No estás autorizado para realizar esta petición.',
+                'status' => 403,
+            ]);
+        } else {
 
         $ranking = DB::table('games')
         
@@ -146,9 +194,18 @@ class GameController extends Controller
                 
                 "ranking" => $ranking,
             ]);
+        }
     }
 
     public function getWinner() {
+
+        if (Auth::user()->role != "1") {
+            return response()->json([
+                'message' => 'No estás autorizado para realizar esta petición.',
+                'status' => 403,
+            ]);
+        } else {
+
         $winner = DB::table('games')
         
         ->join('users', 'games.user_id', '=', 'users.id')
@@ -163,9 +220,18 @@ class GameController extends Controller
                 
                 "winner" => $winner,
             ]);
+        }
     }
 
     public function getLoser() {
+
+        if (Auth::user()->role != "1") {
+            return response()->json([
+                'message' => 'No estás autorizado para realizar esta petición.',
+                'status' => 403,
+            ]);
+        } else {
+
         $loser = DB::table('games')
         
         ->join('users', 'games.user_id', '=', 'users.id')
@@ -180,5 +246,6 @@ class GameController extends Controller
                 
                 "loser" => $loser,
             ]);
+        }
     }
 }
