@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Game;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,14 +19,27 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')
-        ->select('id', 'nickname', 'email')
-        ->get();
+        if (Auth::user()->role != "1") {
+            return response()->json([
+                'message' => 'No estás autorizado para realizar esta petición.',
+                'status' => 403,
+            ]);
+        } else {
+            
+            $users = DB::table('users')
+            ->select('*')
+            ->get();
         
-        return response()->json([
+            return response()->json([
             'users' => $users,
             'status' => 200
+
         ]);
+
+        }
+
+        
+        
         
         
     }
@@ -46,19 +60,29 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function updateName(Request $request, User $player)
+    public function updateName(Request $request, $id)
     {
-        
-        $request->validate([
-            'nickname' => 'required|max:15|unique:users,nickname,'.$player->id,
-            'email' => 'required|string|email|max:255|unique:users,email,'.$player->id,
-            
-        ]);
+        $authorized = Auth::user()->id;
 
-        $player->update($request->all());
-        return response($player, 200);
+        if (!User::find($id)) {
+            return response([
+                "message" => "El usuario seleccionado no existe."
+                    ], 422);
+        } elseif ($authorized == $id) {
+            $user = User::find($id);
+            $request->validate([
+                'nickname' => 'required|max:15|unique:users,nickname,'.$user->id,
+                'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,   
+            ]);
+        } else {
+            return response([
+                "message" => "No estás autorizado para realizar esta acción."
+                    ], 401);
+        }
+
+        $user->update($request->all());
+        return response($user, 200);
+
+    }       
         
     }
-
-
-}
