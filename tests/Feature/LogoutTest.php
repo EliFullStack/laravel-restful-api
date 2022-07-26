@@ -10,6 +10,7 @@ use Laravel\Passport\Passport;
 
 class LogoutTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function testAnAuthenticatedUserCanLogout()
     {
