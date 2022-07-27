@@ -69,6 +69,13 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', ['nickname' => 'elita']);
     }
 
+    public function testUnauthenticatedUserCannotListAllPlayers()
+    {
+        $response = $this->getJson('api/users');
+
+        $response->assertStatus(401);
+    }
+
     
 }
 
