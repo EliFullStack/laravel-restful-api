@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "3454be96-95e1-4ae8-bcce-ba8f82bce9bb",
+		"name": "Laravel Api Rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21643567"
+	},
+	"item": [
+		{
+			"name": "GET /players",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTFlZDZkYjkwY2M5ZTNmYzQ0OWMzNzc2OTQ5MTM0MTIxNTBjZjgyZTNlNTg1YjI1YzJjZGE5YTFhZjc2MTViZDk1OWZkN2M2MjQ0Njc2MzQiLCJpYXQiOjE2NTg3NDYzNzUuNTY5MDg1LCJuYmYiOjE2NTg3NDYzNzUuNTY5MDg5LCJleHAiOjE2NTg3NDcyNzUuNTU1NDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.wNJt6Hictk2GeVm4tf1TV-gu-jDm2LNRKh6b1pJkq57E9uqU2JCsK49y6Lv93PBXnP8MxFzc4_r-Zy6ORapVGsfFlZSJyV-KPYDYGnzwxjr3Kcch4UJqGnvvO-Z_dBKYyesWAIDMXgODyw-ua3EF1staA8eA3by1Qp-Y4kq-KV6UaXLGYj7EXh0PUfHkzFhEn5bP4hH3oxFA2Tt2Y0rLpm_-f4qaQN9Mdxya9zJIiqmq_VVMRDxb9ny1QBSgtp3cr36W0qOVrBRVp0FvPqcyufKxE-Ec6qvXhmg0LsZCV_I40cmoPODzKORhl7HuoGrQH4fGjtthMTCTJICWxVHbPWqiA0plWT996bz2k71pY5YeYucBlVZFIG77VolnfT2CM-OaTGC3HcUk8bPZ5L0RIS7gercUJx19o_TWICbJGVvWrJ3od8-YdVn7TalVa2xzseFra2WN8rzhTXkhxY1agqja187Nnvg2B4dAq8X5zKAa9GV353xn5SrZq8V5WWZkC9XVdZfr-vdVSMf7DqQQhaGEhg7S86WEY-xXnG_7drcxdSLUZso9kkGzDl4AYufcvmHonzlJIPuz4dRQhMsXlAjfPS4HgRQyGRlqLhRMVsibWuh66B5duKhARh0glNnb72_nIlSvBwZU5jYm-XxpAP4C6MmwUxkHHzkOO7Vak_E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players"
+					]
+				},
+				"description": "retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits "
+			},
+			"response": []
+		},
+		{
+			"name": "GET /players/{id}/games",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjdhOTExODhiMTgyMmE5NGFhNTVlMGNhMmE2ODU3MDVjNWUwM2Q4ZWZhM2Y2M2E1ZmFlNjhkMzFhMDA3MjM4YWM4YmZiMzQzYTQxMjA0NTIiLCJpYXQiOjE2NTg3NjAwNTUuMDE2MjIyLCJuYmYiOjE2NTg3NjAwNTUuMDE2MjI2LCJleHAiOjE2NTg3NjA5NTQuODg5MzM3LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.K_mn4gOso5lV-JWLlMa5cVRj1AvklVg6iwz67cmcE9wF-zk_RBluU2ZDbcHkHaEJflHwROZd1yeXqcT0LAx_9m_ggrA9ChDGl1Z3yWbQilnhgP6KycG2RPQXTQC9Ft6tbDd1BGeUzuueaQ24KcQXbyBr7AFvXnUdbQyaU9kKrwS3tYkXS-jrU_ngtRgrYn6Xt5EU24f13ipFkOn2uQaVNOhDkf2ytv85NIvIso0nRZELEd3Dj_SC7pumNeEbuTtF1Ytxn3S25GaPl0AMBA8G1y4_cqV_exK00v4nESyrqb6WOonFUGrGrHdrU_MMZaoSlcA0DuP-R_IDClMxb4PXLtYQoc1F1C4SdPNqr4dIQwcbgmlhHUCmZ9Ge9aH_f_GLvMiE4NOMNniMLYeNlVdc73YdLuGDuipSpGs2UPnWaipjHlkgm747Bre_YDpv4q4-4OxorXWNOpOGMEWFjrWX6RQz0RJG5EAT66RbCNSayyl3XWOzzPuQH-uqtyc9GzJKcZ8eHOlfx5D9olIxySS5hQeLoddOEfFiAlyK6gpfKaTQ3LHdW5cMWn1zzd9_72R17LcEqC5HID0PKv8M804zdmzYRxGoRgHyRctv_SYmWXZHgrUVxPMhR5LFA6mXinCygkLIvK1zB3tmZYIkxrdkZUWo1D7SBsUzdfnO0t_fhIw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players/4/games",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"4",
+						"games"
+					]
+				},
+				"description": "retorna el llistat de jugades per un jugador/a"
+			},
+			"response": []
+		},
+		{
+			"name": "/players/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTNiOTY5ZmI2OThlOWJmMTU4NmNkZGJiZmE2YTk3NzQ4OTg5MGU4ZDA3NDhiZDI4NWFlMWI4ZWE3NTA4MzQ5MjIxN2JmOTdhMjQ5NTI0ZjgiLCJpYXQiOjE2NTg3NDQ5MTIuNzgzMzQsIm5iZiI6MTY1ODc0NDkxMi43ODMzNDMsImV4cCI6MTY1ODc0NTgxMi43NzA2MjUsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.t-rZhKGfl9WM7uXil-TxXRG-1uH0X7-L9ZyYPHa1ump47g3aIsBo9f3oJ4lKCBPq0C49ERY4hcXdw15aVvDQGc-pjP0gi9838cQ_uEee6h70VLgT2GOC9wiJM2BpwwgXX10a1OoCd7KegX77vZqsTUits_5XRni8Wv4cARMbrYtGqz48sTK3iLuD10g8HQg3yU0McP-6XhbGxTcvxpJYFT9BorISvYEk8eUSRn5svGesdp6Nj6TYcVWL27ANe5eTj6cMnuPlfEZXF-jMZp0xmXI7gg59Xu-Dd7CQYj5fTZMqdd241_816xD4ATmkLNeqzDnCFkU426wimLuuNHc8rf3bhcOXZfJrZtUOOLNLTc7Ob60KiNP7PYnTeJFhalNuvmtJlgjiqAhuq7n2FSmuSyoTPgBN5BWC7UdXc9VFm5WpTcYNj_F3_5HHCquSNcwvVMiFXDjE4vONtDczroH3A88VRBS8BLFrlgrhHzsK5Y--WgZKEFAIRFc2OMgtsIrZc_rfzWpfCb_gjz93sFjdXc_pXxtea0K-itPEkkg5xPI-w5QoobP-JYjN9Px5nAalIBa2b4u_0QaDg2WWMWwrAW699VinofGzMX5TTt7ddICP0pOBH67smaAwjdneK0MnJ2aioSCdEeza4wHvEsDAYxcobLJB-LIgFVLbtVE-6Zw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nickname",
+							"value": "Soy Stella",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "stella34@example.net",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}/players/2",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"2"
+					]
+				},
+				"description": "modifica el nom del jugador/a"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /players/{id}/games/ ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNmNkYjBiMDZmY2MyMjA0OWFkZGVkNmVmZTIzNDMwNTA5NGMzNzMzYWJkNWY2ZjM2NTU0NTZmOWYyZTU4ODQ4YTU5ZjVlYzk1NTU4MmI5NmIiLCJpYXQiOjE2NTg3NDY5NzYuNjQ2NzQ0LCJuYmYiOjE2NTg3NDY5NzYuNjQ2NzQ3LCJleHAiOjE2NTg3NDc4NzYuNjMyODY5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.V_OOtX0nIY4suq7khZrilQLYvcG8E5lkzEGf-S_hab0DbNuzMcc4HiTikqlnt8PlCC3dpPQ_RREiXdGJ6Wzs5fxDFRh-c5wW7okexAMkwPGAVDVeJVeqGgnJxuFxJSFqQCHkRNnIabuco6D29dOl1Akqd13eC6znsfgEODmsdB54CA2a5_zhRrA_fkXXqd1J-__jIMH-dt2WebUAbVcuZYxaWHm0H8WaZjAxVErQO9TgMzteBljadeaeAkU861Pclw_19eheIcNVyljYBkgIc4Wg6N87M9i7REJa81PQxHMNsFbBmotqXxGYlkxHi4wLmltzHChIpEzYCHShWQC7DPL8womGVQVSrde4CUUksKUIi5Zkj2erYEdbeU2hlXji_EBP8fqCZKVAOrLC619HFUdonD-DuG-2IXeT5dcdm9H7vlc1c2MTiZQVSnyF2zPF9q_9e3mysn1U41E58TPSKU27LiopkTsu2Ls67xveeMokMTE8VOkCrSPr0hedo1jvzQ-EKXtKLu8Yez12XGU9aX8KIcf_KQVErhUAChV5Fe1wLdWbOp_HnFQ0pamqbXJf_1JmBmnkID9nyuEY9A3hn8at9iHU8fMTl2IC2-AZus9kWVSuhUAtt8n9--OpWToEP5RoKhyW4HMWiP6KAWtsUodg_G0OoOVWF-UYbIX00wU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{ip}}/players/4/games",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"4",
+						"games"
+					]
+				},
+				"description": "un jugador/a específic realitza una tirada dels daus"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nickname\": \"ElJugador\",\r\n    \"email\":\"eljugador@correo.com\",\r\n    \"password\":\"123456788888\",\r\n    \"password_confirmation\":\"123456788888\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}/register",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"register"
+					]
+				},
+				"description": "registra/crea un nou usuari"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "eljugador@correo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456788888",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}/login",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "log in user"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /players/{id}/games",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzg4OWI2NWE4ZmVjOGY3NzVhNGNjYjYxZTMzY2QzMWE1OTg4MGEyZmMwMjcwOTRiMWQ3NTE1ZWNhOTdjYmY5YmFlNDFjMjNlZDMxNGYwNDkiLCJpYXQiOjE2NTg3NjE1NzIuMDg4MjY1LCJuYmYiOjE2NTg3NjE1NzIuMDg4MjY4LCJleHAiOjE2NTg3NjI0NzIuMDM5NDkyLCJzdWIiOiI1MiIsInNjb3BlcyI6W119.4YMSXIEwIZtZn7NVTbDrXr9SAMnPAqWu88LtHySFle1bayxQ5ZBlA46xPwLj8TqAG9oqm7Q9J5QL1zgSzyqsfltdFwM00Kwxn4WmCATbguWkZxput3IB-Fvqv3UMPbgrNBk-iVBieqMHSQdxMVZpcy-hQ3ZEIzDB8-QqiHsdbW-indkUB80tlraxqQON2vqS19pQp07X7YOoL3i3_0IGARQKRf0sSr2UGiWGQpysU3RxY6CyvcBv9-Fk_JoUpRSozOT4Ff2Phds6cetDof3leCv9rONTopXoVPNGLKEmoH4qadNjqSvHw8VJ9vLwfVPJJsv723LgL6pR3ISrHP9HIWPatZLFM2dgNYlDkbI_19Ou-y-MLBvDAm_Pnrec0_7OVkc9tntI92iQtOodxp9KsgpJ_0xRP-u9qkpQGQSDkhcygtTloA4EwRsEAnXoA-vzT81AWjLZ4C_CMUVc4HTNCMp28axQAP8ByotUx9y-22H0JvmhtjIIKYZ9GAG9xzn81fQdKoBmqhZDDfqeMdUybgzIUTPfGHvyOhO_9Xf6OD7wTu-kUV8Vc3CGNxQREMSMbiexRFxzlB2EBlnF_IDmPISJigHc3pLw5ldv2n_T4vJMARDwv_vBWZDBDSXgeZyD-XYaLlvAqHe1UFG1qT9EksNzd9zGgp0yWzUQGCW_Xts",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players/52/games",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"52",
+						"games"
+					]
+				},
+				"description": "elimina les tirades del jugador/a"
+			},
+			"response": []
+		},
+		{
+			"name": "User Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjRiZmQ2MTc5ZDdkODZhOGZjMzQ2MzFiOTQ4OTE2MTkxY2I2ZmUzZjc5ZTY5OTYxMzA4NWM4YTVjZjYwNDA3MjllZjNkNTZhODIxODU5ZTAiLCJpYXQiOjE2NTg3NjIzMzkuMTU5ODQ1LCJuYmYiOjE2NTg3NjIzMzkuMTU5ODQ4LCJleHAiOjE2NTg3NjMyMzkuMTE4MDY1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.sMWy1HulR7Q1z1744qhqd0CVSXUEQoxLcDuGKEs3YZENarcyhwSt-5kR46oT27R1XGoE3q2qobhOqgXqlCWGVZMPD-is427K0tU9TkvoEEhoDGrzc3JrsJgq7Zd5hbTQ4vYvWQyryR9t__IutOzvayA2ySnhO4Vrc5x2kJD78c7L3YEsS3cccmmsqmjyIZpYEW5JmI0PR8CDOgd1W9gVIwXBsE8UJG8mxGQnmbMdj50JjusbKMWCjeSeskGliHDrn6jQv_Q35agMELRlEs87c-jbajdvN48BIsm-MnxYRjSi1M0qXhXhS_uv-05bd6lDkeEfwZDgHXFv9O0lY8zoV1hgEvvulf5Ti_hPUECNXdIxCdTrNYYYYED7hKh6LlVFJ5ZGcGqXgEQB0JSAZ7yTBXN-_fY_1hLaccg2qbihsiRxjVX39IAi3yfdbGqu8wYa-m6OIJq7w6p9QqTQPLi0YbDVSy7L0NCQz9NftkuXrSF100WOt9eLrGLMCIhE1v63WIAXBsjsE-aJQMCX-q-U7zfqitOgBrg-vCrOUpSAwHhawdwcpVF7EitjNj1bSJ4BnI2r6cZk_dWtQY8EiyCaANXf6H6SdPYq-bDkEhvKPpf5IZEitVq8G7D1HIh-FuTPTAriXb5zlx6897NK4f-5XpkvIHHMWxm70dI1Gnp9IrQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/logout",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"logout"
+					]
+				},
+				"description": "user logs out"
+			},
+			"response": []
+		},
+		{
+			"name": "All players",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmNiOGE1NTcxZTNiOWUwZWQxYTE1NGQyZDU0N2UzOWM4YzdlMDMwMjA5NGUyMmIwNDg2YmY5YzI2MTIwY2M5NzYyOTE1NWI2NDZhYjcxNDAiLCJpYXQiOjE2NTg3NDM2MTAuNjQ0NjMsIm5iZiI6MTY1ODc0MzYxMC42NDQ2MzMsImV4cCI6MTY1ODc0NDUxMC42MzE4NTcsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.FUkWQx4sqCO39EAycKn_toa4hyVH77lQMrRwdGu2UqXuNJAaEDpHL5ih25lbz-W9V-bnUKa3peV3ob83omJB1t3W2gqeUKArK5YUX8MOXkcWFhb0Bxx9ocMH38mjSY_byl36enhe-CWHEGJyUHoe68q-WWF1inKS7DWSIov-V5JJgVIe8LLcoLjYlkOOZnXSVUVg2lPpHRbiQhJ0eLVQTnJq-gfqCePXMKL_wlc9yEjvAy0slo402m0La4DB58KPAyYi17OCrNrsLVLX6rZ9p2LJjniuyPynL64zZ6l0na6_ICAGdsZcpbGk8-5W5LgZ3moIrGF4suwXV6GiRp72EukDkwIJ8aqutkbNb0KP2PQfBCe4BRz6XDYzxt6r5uh_o3UXBDq0Zq6RqcMv3z8sn8Q2SJbnnK06R4KG_6dQk7FLtkbvV662TpRKXJPCXi_7CHRrNRaW2DkSaNpOjL75upG6CcF4lgbokehNA6RzpG9MBKiS0ui-rKrTWJcN8fF9HEwCWLgveZTroE7XtG3EdsHdt4Q2QiKn6uLovo3y-TBLl1TMzU_9c_Ym3JN79WvvMql5xSKTHblSaZQGtdc-QdSE-W4V6hSL5R0J2PRMqgJqE9cZ2JLxkqq1He_nu6WiZEbGl6Kp_7teX7Te8QnSgEkz3UUH2BGxynZ-vqBfpig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/users",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"users"
+					]
+				},
+				"description": "shows all the players in the system"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /players/ranking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGJlYzc4NGYzYTEzMzU5MzgwMTdlYzUwNTcwYjhkZTJiOTM1ZTAzNGIyNWExN2YzMzRjNDU4ZDRiYTdhNGM5Yjg3MGU1NTA1ZDZjZTZhYzgiLCJpYXQiOjE2NTg3NjIyMDQuMjQ3Njk5LCJuYmYiOjE2NTg3NjIyMDQuMjQ3NzAzLCJleHAiOjE2NTg3NjMxMDQuMTk4OTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.m5aSCe24vD52cIyckQQK7T6O9PDN5WBIPdrbMjnoMjsv1GyVedN8wtu10F51tZJaKPf1O5YhmSgMDDLAT0oJ68Jyz43Q_wIFdUhV9PESl6q9BH8rh5hjQ7VcW3yzdvFP4YBaniVw-MUYO8ReJ_shm5eONHeLwmZW-GpGAjRhpL7Ioh52k_ACS_WSiKONL0Nn6qSkilvFnY5K2v9HHM46_4kRtshWqU5cMs_hkSkO_BN2xUSu-x8dNZ-RgIgfh_Pgk3vkAiyHEcwPwkAWc_2R-MT_gHtQ08zepRls1lr0UBxMPXuQgI0IGS3TZHwRp_VKztKI8jMaehnCRF3RrAVa2kdr4RlYDKDunXRYEJSdVnkoobRd2enTt8k7hqT25E5tkdDptYbW2Bz2tF2wLvJgPwsCOgBmpAp_eKph7qJsunom7np1EvpAg0Req4gbvY_gX2srtpfy1ZvczvNX7ABGd2j0YosvpzOxSc3nKrQ6uVwOmLySI4g6dwC-7vXiuhUsfMRZGS0TUXSmwBrNrfYrEpfPuGucwHFt3NC80Kka7mw7j6npVf2fPENMJqbopU6NYTHl-9CJJrNL7SNQ3KraYJtTmc15-i-rhEVgXc6Jk7IRtXibJca7nKxdh60SGyOu6fKs9-WWYrjkvQqEbCX08ovSpDkzMv9x-hVK3APQnzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players/ranking",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"ranking"
+					]
+				},
+				"description": "retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits."
+			},
+			"response": []
+		},
+		{
+			"name": "GET /players/ranking/winner",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGJlYzc4NGYzYTEzMzU5MzgwMTdlYzUwNTcwYjhkZTJiOTM1ZTAzNGIyNWExN2YzMzRjNDU4ZDRiYTdhNGM5Yjg3MGU1NTA1ZDZjZTZhYzgiLCJpYXQiOjE2NTg3NjIyMDQuMjQ3Njk5LCJuYmYiOjE2NTg3NjIyMDQuMjQ3NzAzLCJleHAiOjE2NTg3NjMxMDQuMTk4OTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.m5aSCe24vD52cIyckQQK7T6O9PDN5WBIPdrbMjnoMjsv1GyVedN8wtu10F51tZJaKPf1O5YhmSgMDDLAT0oJ68Jyz43Q_wIFdUhV9PESl6q9BH8rh5hjQ7VcW3yzdvFP4YBaniVw-MUYO8ReJ_shm5eONHeLwmZW-GpGAjRhpL7Ioh52k_ACS_WSiKONL0Nn6qSkilvFnY5K2v9HHM46_4kRtshWqU5cMs_hkSkO_BN2xUSu-x8dNZ-RgIgfh_Pgk3vkAiyHEcwPwkAWc_2R-MT_gHtQ08zepRls1lr0UBxMPXuQgI0IGS3TZHwRp_VKztKI8jMaehnCRF3RrAVa2kdr4RlYDKDunXRYEJSdVnkoobRd2enTt8k7hqT25E5tkdDptYbW2Bz2tF2wLvJgPwsCOgBmpAp_eKph7qJsunom7np1EvpAg0Req4gbvY_gX2srtpfy1ZvczvNX7ABGd2j0YosvpzOxSc3nKrQ6uVwOmLySI4g6dwC-7vXiuhUsfMRZGS0TUXSmwBrNrfYrEpfPuGucwHFt3NC80Kka7mw7j6npVf2fPENMJqbopU6NYTHl-9CJJrNL7SNQ3KraYJtTmc15-i-rhEVgXc6Jk7IRtXibJca7nKxdh60SGyOu6fKs9-WWYrjkvQqEbCX08ovSpDkzMv9x-hVK3APQnzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players/ranking/winner",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"ranking",
+						"winner"
+					]
+				},
+				"description": "retorna el jugador/a amb millor percentatge d’èxit"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /players/ranking/loser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGJlYzc4NGYzYTEzMzU5MzgwMTdlYzUwNTcwYjhkZTJiOTM1ZTAzNGIyNWExN2YzMzRjNDU4ZDRiYTdhNGM5Yjg3MGU1NTA1ZDZjZTZhYzgiLCJpYXQiOjE2NTg3NjIyMDQuMjQ3Njk5LCJuYmYiOjE2NTg3NjIyMDQuMjQ3NzAzLCJleHAiOjE2NTg3NjMxMDQuMTk4OTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.m5aSCe24vD52cIyckQQK7T6O9PDN5WBIPdrbMjnoMjsv1GyVedN8wtu10F51tZJaKPf1O5YhmSgMDDLAT0oJ68Jyz43Q_wIFdUhV9PESl6q9BH8rh5hjQ7VcW3yzdvFP4YBaniVw-MUYO8ReJ_shm5eONHeLwmZW-GpGAjRhpL7Ioh52k_ACS_WSiKONL0Nn6qSkilvFnY5K2v9HHM46_4kRtshWqU5cMs_hkSkO_BN2xUSu-x8dNZ-RgIgfh_Pgk3vkAiyHEcwPwkAWc_2R-MT_gHtQ08zepRls1lr0UBxMPXuQgI0IGS3TZHwRp_VKztKI8jMaehnCRF3RrAVa2kdr4RlYDKDunXRYEJSdVnkoobRd2enTt8k7hqT25E5tkdDptYbW2Bz2tF2wLvJgPwsCOgBmpAp_eKph7qJsunom7np1EvpAg0Req4gbvY_gX2srtpfy1ZvczvNX7ABGd2j0YosvpzOxSc3nKrQ6uVwOmLySI4g6dwC-7vXiuhUsfMRZGS0TUXSmwBrNrfYrEpfPuGucwHFt3NC80Kka7mw7j6npVf2fPENMJqbopU6NYTHl-9CJJrNL7SNQ3KraYJtTmc15-i-rhEVgXc6Jk7IRtXibJca7nKxdh60SGyOu6fKs9-WWYrjkvQqEbCX08ovSpDkzMv9x-hVK3APQnzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ip}}/players/ranking/loser",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"players",
+						"ranking",
+						"loser"
+					]
+				},
+				"description": "retorna el jugador/a amb pitjor percentatge d’èxit"
+			},
+			"response": []
+		}
+	]
+}

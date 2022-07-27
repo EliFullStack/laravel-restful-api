@@ -16,6 +16,7 @@ class RegisterController extends Controller
                 'nickname' => 'nullable',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required'
             ]);
             $validatedData['nickname'] = 'Anónimo';
         } else {
@@ -23,6 +24,7 @@ class RegisterController extends Controller
                 'nickname' => 'required|string|unique:users|max:15',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required'
             ]);
         }
 
@@ -34,9 +36,9 @@ class RegisterController extends Controller
         $accesToken = $user->createToken('authToken')->accessToken;
         
         return response ([
-            'message' => 'El usuario '.$user['nickname'].' ha sido creado con éxito.',
+            'message' => 'El usuario '.$user['nickname'].' ha sido creado con éxito.',   
             'access_token' => $accesToken
-        ]);
+        ], 201);
         
     }
 }
